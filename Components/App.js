@@ -1,36 +1,48 @@
 import React from 'react';
-import Title from './Title';
+import ToDoList from './ToDoList';
+
+
 
 class App extends React.Component {
 
     state = {
-        title: 'Hello world!'
+        value: '',
+        list: []
     };
 
-    componentDidMount() {
-        console.log(this.el);
+
+    handleChange = (event) => {
+        this.setState({value: event.target.value});
     }
 
-    handleChangeTitle = (event) => {
-        this.setState({title: event.target.value});
+    handleSubmit = (event) => {
+        const {value} = this.state;
+        if (value.trim().length) {
+            this.setState(prevState => ({
+                list: [...prevState.list, value] // use of push?
+            }));
+        }
+        event.preventDefault();
     }
 
-    mapRef = (el) => this.el = el;
+    mapRef = (el) => this.el = el; // ???
 
     render() {
-        const {title} = this.state;
-
+        const {value} = this.state; // const or let ???
+        const {list} = this.state;
         return (
             <React.Fragment>
-                <Title title={title} />
-                <label ref={this.mapRef}>
-                    {'Change Title'}
-                </label>
-                <input
-                    type="text"
-                    onChange={this.handleChangeTitle}
-                    value={title}
-                />
+                <form onSubmit={this.handleSubmit}>
+                    <label ref={this.mapRef}>
+                        {'Submit your to-do item here: '}
+                    </label>
+                    <input
+                        type="text"
+                        onChange={this.handleChange}
+                        value={value}
+                    />
+                </form>
+                <ToDoList list={list} />
             </React.Fragment>
         );
     }
