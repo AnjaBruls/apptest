@@ -1,5 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import CheckBox from '@material-ui/icons/CheckBox';
+import CheckBoxOutlineBlank from '@material-ui/icons/CheckBoxOutlineBlank';
+import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
+import { Link } from 'react-router-dom';
+
 
 class CheckListItem extends React.Component {
 
@@ -19,36 +28,45 @@ class CheckListItem extends React.Component {
     }
 
     render() {
-        var {active} = this.state;
         var {item} = this.props;
+        var {active, value} = this.state;
         //window.console.warn(item);
-        if (active) {
-            var {value} = this.state;
+        return !active ? null : (
+            <ListItem
+                key={item.key}
+                role={undefined}
+                dense
+            >
+                <Button
+                    variant="flat"
+                    color="primary"
+                    name={item}
+                    type="submit"
+                    onClick={this.handleClick}
+                >
+                    {value  ? <CheckBox /> : <CheckBoxOutlineBlank />}
+                </Button>
+                <ListItemText primary={item} />
+                <ListItemSecondaryAction>
 
-            return (
-                <React.Fragment>
-                    <li>
-                        <button
-                            name={item}
-                            type="submit"
-                            onClick={this.handleClick}
-                        >
-                            {value  ? 'X' : 'O'}
-                        </button>
-                        {item}
-                        <button
-                            name="Remove"
-                            type="submit"
-                            onClick={this.handleClick}
-                        >
-                            {'Remove'}
-                        </button>
-                    </li>
-                </React.Fragment>
-            );
-        } else {
-            return null;
-        }
+                    <Link
+                        to={`/itemcontent/${item}`}
+                    >
+                        {'Item'}
+                    </Link>
+
+                    <Button
+                        variant="flat"
+                        color="primary"
+                        name="Remove"
+                        type="submit"
+                        onClick={this.handleClick}
+                    >
+                        <DeleteRoundedIcon />
+                    </Button>
+                </ListItemSecondaryAction>
+            </ListItem>
+        );
     }
 }
 
@@ -58,56 +76,3 @@ CheckListItem.propTypes  = {
 
 export default CheckListItem;
 
-// import React from 'react';
-
-// class CheckListItem extends React.Component {
-
-//     state = {
-//         check: false
-//     };
-
-
-//     handleChange = (event) => {
-//         this.setState({check: !event.target.check});
-//     }
-
-//     render() {
-//         const {item} = this.props;
-//         const {check} = this.state;
-//         window.console.warn(check);
-//         return (
-//             <React.Fragment>
-//                 <li>
-//                     <input
-//                         name="Done"
-//                         type="checkbox"
-//                         value={check}
-//                         onChange={this.handleChange}
-//                     />
-//                     {item}
-
-//                 </li>
-//             </React.Fragment>
-//         );
-//     }
-// }
-
-// export default CheckListItem;
-
-// handleChange = (event) => {
-//     const target = event.target;
-//     const value = target.type === 'checkbox' ? target.checked : target.value;
-//     const name = target.name;
-
-//     this.setState({
-//         [name]: value
-//     });
-// }
-
-
-// <input
-//                             name={item}
-//                             type="checkbox"
-//                             // checked={value}
-//                             onChange={this.handleChange}
-//                         />

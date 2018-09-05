@@ -38,5 +38,8 @@ module.exports = {
         "react/no-set-state": [0],
         "react/jsx-sort-props": [0],
         "react/sort-prop-types": [0],
+        "react/jsx-max-depth": [2, {max: 8}],
+        "react/forbid-component-props": [0],
+        "react/jsx-max-props-per-line": [0]
     }
 };

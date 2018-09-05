@@ -1,9 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './Components/App';
+import {HashRouter as Router, Route} from 'react-router-dom';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+
+const theme = createMuiTheme({
+    palette: {
+        type: 'dark',
+    }
+});
 
 ReactDOM.render(
-    <App />,
+    <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router>
+            <Route
+                component={App}
+                path="/"
+            />
+        </Router>
+    </MuiThemeProvider>,
     document.getElementById('app')
 );
 
