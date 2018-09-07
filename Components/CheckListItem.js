@@ -8,19 +8,19 @@ import CheckBox from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlank from '@material-ui/icons/CheckBoxOutlineBlank';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import { Link } from 'react-router-dom';
+import ToDoListActions from '../Stores/ToDoListActions';
 
 
 class CheckListItem extends React.Component {
 
     state = {
         value: false,
-        active: true
     };
 
     handleClick = (event) => {
         if (event.target.name === 'Remove') {
-            var {active} = this.state;
-            this.setState({active: !active});
+            const {id} = this.props;
+            ToDoListActions.remove(id);
         } else {
             var {value} = this.state;
             this.setState({value: !value});
@@ -28,29 +28,29 @@ class CheckListItem extends React.Component {
     }
 
     render() {
-        var {item} = this.props;
-        var {active, value} = this.state;
-        //window.console.warn(item);
-        return !active ? null : (
+        var {name, id} = this.props;
+        var {value} = this.state;
+
+        return  (
             <ListItem
-                key={item.key}
+                key={id}
                 role={undefined}
                 dense
             >
                 <Button
                     variant="flat"
                     color="primary"
-                    name={item}
+                    name={name}
                     type="submit"
                     onClick={this.handleClick}
                 >
                     {value  ? <CheckBox /> : <CheckBoxOutlineBlank />}
                 </Button>
-                <ListItemText primary={item} />
+                <ListItemText primary={name} />
                 <ListItemSecondaryAction>
 
                     <Link
-                        to={`/itemcontent/${item}`}
+                        to={`/itemcontent/${name}`}
                     >
                         {'Item'}
                     </Link>
@@ -71,7 +71,8 @@ class CheckListItem extends React.Component {
 }
 
 CheckListItem.propTypes  = {
-    item: PropTypes.string.isRequired, // forbidden??
+    name: PropTypes.string.isRequired, // forbidden??
+    id: PropTypes.number.isRequired,
 };
 
 export default CheckListItem;

@@ -2,7 +2,7 @@ import Vlow from 'vlow';
 
 const ToDoListActions = Vlow.createActions([ // default?
     'add',
-    //'remove',
+    'remove',
 ]);
 
 export default ToDoListActions;

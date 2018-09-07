@@ -96,7 +96,11 @@ Home.propTypes = {
     classes: PropTypes.objectOf(PropTypes.any).isRequired,
 
     /* ToDoListStore properties */
-    list: PropTypes.arrayOf(PropTypes.string).isRequired,
+    list: PropTypes.arrayOf(PropTypes.shape({
+        id:PropTypes.number,
+        name: PropTypes.string,
+    })).isRequired,
+    //list: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 

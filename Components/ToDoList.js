@@ -18,8 +18,9 @@ const ToDoList = ({list}) => (
         <List>
             {list.map((item) => (
                 <CheckListItem
-                    key={item.toString()} // make id
-                    item={item}
+                    key={item.id}
+                    id={item.id} // make id
+                    name={item.name}
                 />
             ))}
         </List>
@@ -27,7 +28,10 @@ const ToDoList = ({list}) => (
 );
 
 ToDoList.propTypes  = {
-    list: PropTypes.arrayOf(PropTypes.string).isRequired, // forbidden??
+    list: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+    })).isRequired,
 };
 
 export default ToDoList;
